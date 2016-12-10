@@ -1,0 +1,9 @@
+# /etc/cron.d/oss-mondobackup
+# Zeiten, zu denen ein Backup angefertigt wird.
+#
+# Frank Schütte <fschuett@gymhim.de>
+# 2016
+# Gpl v3
+#
+0 1 * * 6   root [ -e /etc/sysconfig/oss-mondobackup ] && . /etc/sysconfig/oss-mondobackup && [ "$CRONBACKUP" = "yes" ] && /usr/sbin/oss-mondobackup-diff-full
+0 2 * * 0-5 root [ -e /etc/sysconfig/oss-mondobackup ] && . /etc/sysconfig/oss-mondobackup && [ "$CRONBACKUP" = "yes" ] && /usr/sbin/oss-mondobackup --inc
