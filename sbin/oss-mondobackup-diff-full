@@ -11,10 +11,10 @@ echo -n "when:$when|now:$now|equal?:"
 [ $when -eq $now ] && echo true || echo false
 
 if [ $when -eq $now ]; then
-        echo "doing oss-mondobackup --full"
-        /usr/sbin/oss-mondobackup --full
+        echo "doing oss-mondobackup -f[ull]."
+        /sbin/oss-mondobackup -f
 else
-        echo "doing oss-mondobackup --diff."
-        /usr/sbin/oss-mondobackup --diff
+        echo "doing oss-mondobackup -d[iff]."
+        /sbin/oss-mondobackup -d
 fi
 

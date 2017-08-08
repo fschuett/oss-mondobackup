@@ -5,10 +5,10 @@
 # tschmitt@linuxmuster.de
 # fschuett@gymhim.de
 #
-
+source /usr/share/linbo/dist.conf
 
 # source helperfunctions
-. $HELPERFUNCTIONS || exit 1
+source /usr/share/linbo/helperfunctions.sh
 
 # default values
 deplistdir=/etc/mindi/deplist.d
@@ -22,39 +22,59 @@ EXCLUDEDIRS="/var/tmp"
 COMPRESSION=3
 KEEPFULL=1
 KEEPINC=7
+RCDIR=/etc/rc.d
 
 # read config
 [ -f /etc/sysconfig/oss-mondobackup ] && . /etc/sysconfig/oss-mondobackup
 
 # parsing parameters
-getopt $*
+while getopts "fdib:m:r:v:p:z:x:n:s:c:u:F:D:I:" opt; do
+  case "$opt" in
+    f) full=1 ;;
+    d) diff=1 ;;
+    i) inc=1 ;;
+    b) backupdevice=$OPTARG ;;
+    r) restoremethod=$OPTARG ;;
+    v) verify=$OPTARG ;;
+    p) isoprefix=$OPTARG ;;
+    z) mediasize=$OPTARG ;;
+    x) excludedirs=$OPTARG ;;
+    n) includedirs=$OPTARG ;;
+    s) services=$OPTARG ;;
+    c) compression=$OPTARG ;;
+    u) unmount=$OPTARG ;;
+    F) keepfull=$OPTARG ;;
+    D) keepdiff=$OPTARG ;;
+    I) keepinc=$OPTARG ;;
+  esac
+done
 
 
 usage() {
   echo
-  echo "Usage: oss-mondobackup --full|--diff|--inc [options]"
+  echo "Usage: oss-mondobackup -f[ull]|-d[iff]|-i[nc] [options]"
   echo
   echo "Options:"
-  echo "--backupdevice=device                : device is a hd partition or a nfs share,"
+  echo "-b[ackupdevice] device               : device is a hd partition or a nfs share,"
   echo "                                       e.g. /dev/sdb1 or 10.16.1.10:/home/nfs".
-  echo "--mountpoint=directory               : directory where the device is mounted."
-  echo "--restoremethod=hd|nfs               : where you plan to restore from."
-  echo "--verify=yes|no                      : whether to verify data after backup."
-  echo "--isoprefix=server                   : string which is used as a prefix for"
+  echo "-m[ountpoint] directory              : directory where the device is mounted."
+  echo "-r[estoremethod] hd|nfs              : where you plan to restore from."
+  echo "-v[erify] yes|no                     : whether to verify data after backup."
+  echo "-[iso]p[refix] server                : string which is used as a prefix for"
   echo "                                       the iso files and the folder."
-  echo "--mediasize=4430                     : size of the iso files in mb."
-  echo "--excludedirs=dir1,dir2,...          : directories to exclude from backup."
-  echo "--includedirs=dir1,dir2,...          : directories to include in backup,"
+  echo "-[mediasi[z[e] 4430                  : size of the iso files in mb."
+  echo "-[e]x[cludedirs] dir1,dir2,...       : directories to exclude from backup."
+  echo "-[i]n[cludedirs] dir1,dir2,...       : directories to include in backup,"
   echo "                                       if not set the whole file system will be backed up."
-  echo "--services=all|service1,service2,... : list of services in the current runlevel which"
+  echo "-s[ervices] all|service1,service2,...: list of services in the current runlevel which"
   echo "                                       have to be stopped before backup begins,"
   echo "                                       <all> stops all services in the current runlevel,"
   echo "                                       if not set no service will be stopped."
-  echo "--compression=3                      : compression level (0-9), 0 means no compression."
-  echo "--unmount=yes|no                     : whether to unmount the backupdevice after backup."
-  echo "--keepfull=1                         : how many full backup sets to keep"
-  echo "--keepdiff=1                         : how many differential backup sets to keep."
-  echo "--keepinc=7                          : how many incremental backup sets to keep."
+  echo "-c[ompression] 3                     : compression level (0-9), 0 means no compression."
+  echo "-u[nmount] yes|no                    : whether to unmount the backupdevice after backup."
+  echo "-[keep]F[ull] 1                      : how many full backup sets to keep"
+  echo "-[keep]D[iff] 1                      : how many differential backup sets to keep."
+  echo "-[keep]I[nc] 7                       : how many incremental backup sets to keep."
   echo "                                       keep values have to be greater than 0."
   echo
   exit 1
@@ -216,12 +236,12 @@ stmp=/var/tmp/tmp.SERVICES.$mypid
 if [ -n "$SERVICES" ]; then
 	echo "Shutting down SERVICES ..."
 	if [ "$SERVICES" = "all" ]; then
-		for s in `ls -r /etc/rc${rl}.d/S*`; do
+		for s in `ls -r ${RCDIR}/rc${rl}.d/S*`; do
 			$s stop
 		done
 	else
 		for s in $SERVICES; do
-			[ -e /etc/rc${rl}.d/S??${s} ] && echo /etc/rc${rl}.d/S??${s} >> $stmp
+			[ -e ${RCDIR}/rc${rl}.d/S??${s} ] && echo ${RCDIR}/rc${rl}.d/S??${s} >> $stmp
 		done
 		if [ -s "$stmp" ]; then
 			for s in `sort -r $stmp`; do
@@ -478,7 +498,7 @@ fi
 if [ -n "$SERVICES" ]; then
 	echo "Starting SERVICES again ..."
 	if [ "$SERVICES" = "all" ]; then
-		for s in /etc/rc${rl}.d/S*; do
+		for s in ${RCDIR}/rc${rl}.d/S*; do
 			$s start
 		done
 	else
