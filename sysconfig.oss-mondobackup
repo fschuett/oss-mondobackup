@@ -42,7 +42,7 @@ MEDIASIZE=4430
 ## Type:	string
 ## Default:	/var/tmp,/var/cache
 # directories to exclude, comma separated (/proc, /sys and /tmp are automatically excluded)
-EXCLUDEDIRS=/var/tmp,/var/cache
+EXCLUDEDIRS=/var/tmp,/var/cache,/var/spool/cups,/var/lib/named,/var/lib/dhcp,/var/lib/ntp,/var/run
 
 ## Type:	string
 ## Default:	any
@@ -59,7 +59,7 @@ INCLUDEDIRS=
 #               - all
 #               - a list of comma separated services
 # SERVICES=all
-SERVICES=cups,nagios3,postgresql,mysql,slapd,smbd,nmbd,postfix,apache2,cyrus-imapd,saslauthd,clamav-daemon,clamav-freshclam,rsync,atftpd,nscd,cron,bittorrent,linbo-bittorrent,linbo-multicast
+SERVICES=cups,nagios,postgresql,mysql,slapd,smb,nmb,postfix,apache2,cyrus,saslauthd,amavis,clamav-milter,rsyncd,vsftpd,nscd,cron,bittorrent,linbo-bittorrent,linbo-multicast,nfsserver
 
 ## Type:	string
 ## Default:	3
