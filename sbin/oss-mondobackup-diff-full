@@ -5,7 +5,7 @@
 # cal hat ein strenges Format, wobei Leerzeichen verwendet werden.
 # cal -h hebt den aktuellen Tag nicht hervor.
 
-when=`cal -h | head -n 3 | tail -n 1 |cut -c 19-20`
+when=`cal | head -n 3 | tail -n 1 |cut -c 19-20`
 now=`date "+%_d"`
 echo -n "when:$when|now:$now|equal?:"
 [ $when -eq $now ] && echo true || echo false
