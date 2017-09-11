@@ -1,9 +1,8 @@
 #!/bin/bash
 # am ersten Samstag im Monat wird ein full backup gemacht, 
 # an anderen Samstagen ein diff backup
-# Frank Schütte 2014
+# Frank Schütte 2017
 # cal hat ein strenges Format, wobei Leerzeichen verwendet werden.
-# cal -h hebt den aktuellen Tag nicht hervor.
 
 when=`cal | head -n 3 | tail -n 1 |cut -c 19-20`
 now=`date "+%_d"`
