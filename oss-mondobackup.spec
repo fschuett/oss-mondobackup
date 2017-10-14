@@ -14,7 +14,7 @@ Group:		Productivity/
 Source:		%{name}-%{version}.tar.gz
 
 Requires:	openschool-base
-Requires:	bash mondo mindi mindi-busybox
+Requires:	bash mondo mindi mindi-busybox screen
 
 BuildRoot:    %{_tmppath}/%{name}-root
 Requires:	openschool-base

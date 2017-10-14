@@ -5,5 +5,5 @@
 # 2016
 # Gpl v3
 #
-0 1 * * 6   root [ -e /etc/sysconfig/oss-mondobackup ] && . /etc/sysconfig/oss-mondobackup && [ "$CRONBACKUP" = "yes" ] && /sbin/oss-mondobackup-diff-full
-0 2 * * 0-5 root [ -e /etc/sysconfig/oss-mondobackup ] && . /etc/sysconfig/oss-mondobackup && [ "$CRONBACKUP" = "yes" ] && /sbin/oss-mondobackup -i
+0 1 * * 6   root [ -e /etc/sysconfig/oss-mondobackup ] && . /etc/sysconfig/oss-mondobackup && [ "$CRONBACKUP" = "yes" ] && screen -S mondoDF -d -m /sbin/oss-mondobackup-diff-full
+0 2 * * 0-5 root [ -e /etc/sysconfig/oss-mondobackup ] && . /etc/sysconfig/oss-mondobackup && [ "$CRONBACKUP" = "yes" ] && screen -S mondoI -d -m /sbin/oss-mondobackup -i
