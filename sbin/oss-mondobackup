@@ -5,10 +5,6 @@
 # tschmitt@linuxmuster.de
 # fschuett@gymhim.de
 #
-source /usr/share/linbo/dist.conf
-
-# source helperfunctions
-source /usr/share/linbo/helperfunctions.sh
 
 # default values
 deplistdir=/etc/mindi/deplist.d
@@ -101,6 +97,17 @@ usage() {
 [[ -n "$full" && -n "$diff" ]] && usage
 [[ -n "$inc" && -n "$diff" ]] && usage
 [[ -z "$BACKUPDEVICE" || -z "$MOUNTPOINT" ]] && usage
+
+
+# test if variable is an integer
+isinteger () {
+  [ $# -eq 1 ] || return 1
+
+  case $1 in
+  *[!0-9]*|"") return 1;;
+            *) return 0;;
+  esac
+} # isinteger
 
 
 # set mondoarchive parameter

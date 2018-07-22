@@ -43,7 +43,7 @@ cp -R sbin/* %{buildroot}/sbin/
 
 %post
 # setup rights
-if [ -d /home/sysadmins/admin ]
+if [ -d /home/sysadmins/administrator ]
 then
    DATE=`date +%Y-%m-%d:%H-%M`
    MINDI=/etc/mindi/mindi.conf
