@@ -6,6 +6,9 @@
 # fschuett@gymhim.de
 #
 
+# date & time
+[ -e /usr/bin/date ] && DATETIME=`date +%y%m%d-%H%M%S`
+
 # default values
 deplistdir=/etc/mindi/deplist.d
 netconf=$deplistdir/net.conf
