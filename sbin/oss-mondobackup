@@ -8,6 +8,8 @@
 
 # date & time
 [ -e /usr/bin/date ] && DATETIME=`date +%y%m%d-%H%M%S`
+PATH=/sbin:/usr/sbin:/usr/bin:/bin
+export PATH
 
 # default values
 deplistdir=/etc/mindi/deplist.d
@@ -220,7 +222,7 @@ fi
 
 
 # storing runlevel
-rl=`runlevel | awk '{ print $2 }'`
+rl=`/sbin/runlevel | awk '{ print $2 }'`
 
 
 # remove MOUNTPOINT from EXCLUDEDIRS, will be added directly to mondoarchive parameters below (#458).
@@ -382,9 +384,9 @@ fi
 # starting mondoarchive
 if [ $RC -eq 0 ]; then
 	if [ -z "$INCLUDEDIRS" ]; then
-		nice -n 19 mondoarchive $btypeparam -p $ISOPREFIX $rtypeparam -E "${MOUNTPOINT}|${EXCLUDEDIRS}" -N -d $target -s ${MEDIASIZE}m -$COMPRESSION -L $kernelmanual
+		/usr/bin/nice -n 19 mondoarchive $btypeparam -p $ISOPREFIX $rtypeparam -E "${MOUNTPOINT}|${EXCLUDEDIRS}" -N -d $target -s ${MEDIASIZE}m -$COMPRESSION -L $kernelmanual
 	else
-		nice -n 19 mondoarchive $btypeparam -p $ISOPREFIX $rtypeparam -I "$INCLUDEDIRS" -E "${MOUNTPOINT}|${EXCLUDEDIRS}" -N -d $target -s ${MEDIASIZE}m -$COMPRESSION -L $kernelmanual
+		/usr/bin/nice -n 19 mondoarchive $btypeparam -p $ISOPREFIX $rtypeparam -I "$INCLUDEDIRS" -E "${MOUNTPOINT}|${EXCLUDEDIRS}" -N -d $target -s ${MEDIASIZE}m -$COMPRESSION -L $kernelmanual
 	fi
 	RC=$?
 fi
