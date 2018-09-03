@@ -59,7 +59,7 @@ INCLUDEDIRS=
 #               - all
 #               - a list of comma separated services
 # SERVICES=all
-SERVICES=cups,nagios,postgresql,mysql,slapd,smb,nmb,postfix,apache2,cyrus,saslauthd,amavis,clamav-milter,rsyncd,vsftpd,nscd,cron,bittorrent,linbo-bittorrent,linbo-multicast,nfsserver
+SERVICES=cups,postgresql,mysql,samba,postfix,apache2,cyrus,saslauthd,amavis,clamav-milter,rsyncd,vsftpd,cron,bittorrent,linbo-bittorrent,linbo-multicast,nfsserver
 
 ## Type:	string
 ## Default:	3

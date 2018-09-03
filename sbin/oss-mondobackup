@@ -23,7 +23,6 @@ EXCLUDEDIRS="/var/tmp"
 COMPRESSION=3
 KEEPFULL=1
 KEEPINC=7
-RCDIR=/etc/rc.d
 
 # read config
 [ -f /etc/sysconfig/oss-mondobackup ] && . /etc/sysconfig/oss-mondobackup
@@ -221,10 +220,6 @@ else
 fi
 
 
-# storing runlevel
-rl=`/sbin/runlevel | awk '{ print $2 }'`
-
-
 # remove MOUNTPOINT from EXCLUDEDIRS, will be added directly to mondoarchive parameters below (#458).
 EXCLUDEDIRS="${EXCLUDEDIRS//$MOUNTPOINT/}"
 
@@ -233,11 +228,7 @@ EXCLUDEDIRS="${EXCLUDEDIRS//$MOUNTPOINT/}"
 EXCLUDEDIRS="${EXCLUDEDIRS//,/|}"
 INCLUDEDIRS="${INCLUDEDIRS//,/|}"
 SERVICES="${SERVICES//,/ }"
-
-# temp file for sorted SERVICES
-stmp=/var/tmp/tmp.SERVICES.$mypid
-[ -e "$stmp" ] && rm $stmp
-
+ALLSERVICES="$(/usr/bin/systemctl list-units --type=service --state=running|grep '\.service'|cut -d\. -f1|tr "\n" " ")"
 
 # included dirs?
 # workaround mondoarchive segfault
@@ -248,20 +239,11 @@ stmp=/var/tmp/tmp.SERVICES.$mypid
 if [ -n "$SERVICES" ]; then
 	echo "Shutting down SERVICES ..."
 	if [ "$SERVICES" = "all" ]; then
-		for s in `ls -r ${RCDIR}/rc${rl}.d/S*`; do
-			$s stop
-		done
-	else
-		for s in $SERVICES; do
-			[ -e ${RCDIR}/rc${rl}.d/S??${s} ] && echo ${RCDIR}/rc${rl}.d/S??${s} >> $stmp
-		done
-		if [ -s "$stmp" ]; then
-			for s in `sort -r $stmp`; do
-				$s stop
-			done
-		else
-			echo "No SERVICES to shut down!"
+		if [ -n "$ALLSERVICES" ]; then
+			/usr/bin/systemctl stop "$ALLSERVICES"
 		fi
+	else
+		/usr/bin/systemctl stop "$SERVICES"
 	fi
 fi
 
@@ -510,24 +492,16 @@ fi
 if [ -n "$SERVICES" ]; then
 	echo "Starting SERVICES again ..."
 	if [ "$SERVICES" = "all" ]; then
-		for s in ${RCDIR}/rc${rl}.d/S*; do
-			$s start
-		done
-	else
-		if [ -s "$stmp" ]; then
-			for s in `sort $stmp`; do
-				$s start
-			done
-		else
-			echo "No SERVICES to start!"
+		if [ -n "$ALLSERVICES" ]; then
+			/usr/bin/systemctl start "$ALLSERVICES"
 		fi
+	else
+		/usr/bin/systemctl start "$SERVICES"
 	fi
-
 fi
 
 
 # delete temp files
-[ -e "$stmp" ] && rm $stmp
 rm $mypidfile
 
 
