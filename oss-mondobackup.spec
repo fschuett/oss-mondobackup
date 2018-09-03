@@ -8,16 +8,15 @@ Version:	7.0
 Release:	1.1
 License:	GPLv3
 Vendor:		openSUSE Linux
-Distribution:	SLE11
 Packager:	fschuett@gymhim.de
 Group:		Productivity/
 Source:		%{name}-%{version}.tar.gz
 
-Requires:	openschool-base
+Requires:	oss-base
 Requires:	bash mondo mindi mindi-busybox screen
 
 BuildRoot:    %{_tmppath}/%{name}-root
-Requires:	openschool-base
+Requires:	oss-base
 
 %description
 This package provides a backup script to create mondorestore images for full automatic server restore.
