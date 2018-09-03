@@ -240,10 +240,10 @@ if [ -n "$SERVICES" ]; then
 	echo "Shutting down SERVICES ..."
 	if [ "$SERVICES" = "all" ]; then
 		if [ -n "$ALLSERVICES" ]; then
-			/usr/bin/systemctl stop "$ALLSERVICES"
+			/usr/bin/systemctl stop $ALLSERVICES
 		fi
 	else
-		/usr/bin/systemctl stop "$SERVICES"
+		/usr/bin/systemctl stop $SERVICES
 	fi
 fi
 
@@ -493,10 +493,10 @@ if [ -n "$SERVICES" ]; then
 	echo "Starting SERVICES again ..."
 	if [ "$SERVICES" = "all" ]; then
 		if [ -n "$ALLSERVICES" ]; then
-			/usr/bin/systemctl start "$ALLSERVICES"
+			/usr/bin/systemctl start $ALLSERVICES
 		fi
 	else
-		/usr/bin/systemctl start "$SERVICES"
+		/usr/bin/systemctl start $SERVICES
 	fi
 fi
 
