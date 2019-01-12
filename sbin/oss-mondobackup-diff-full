@@ -4,10 +4,10 @@
 # Frank Schütte 2017
 # cal hat ein strenges Format, wobei Leerzeichen verwendet werden.
 
-when=`/usr/bin/cal | /usr/bin/head -n 3 | /usr/bin/tail -n 1 |/usr/bin/cut -c 19-20`
+when=`/usr/bin/cal | /usr/bin/head -n 3 | /usr/bin/tail -n 1 |/usr/bin/cut -c 16-17`
 now=`/usr/bin/date "+%_d"`
 /usr/bin/echo -n "when:$when|now:$now|equal?:"
-[ $when -eq $now ] && /ur/bin/echo true || /usr/bin/echo false
+[ $when -eq $now ] && /usr/bin/echo true || /usr/bin/echo false
 
 if [ $when -eq $now ]; then
         echo "doing oss-mondobackup -f[ull]."
