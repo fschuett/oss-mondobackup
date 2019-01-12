@@ -7,3 +7,4 @@
 #
 0 1 * * 6   root [ -e /etc/sysconfig/oss-mondobackup ] && . /etc/sysconfig/oss-mondobackup && [ "$CRONBACKUP" = "yes" ] && screen -S mondoDF -d -m /sbin/oss-mondobackup-diff-full
 0 2 * * 0-5 root [ -e /etc/sysconfig/oss-mondobackup ] && . /etc/sysconfig/oss-mondobackup && [ "$CRONBACKUP" = "yes" ] && screen -S mondoI -d -m /sbin/oss-mondobackup -i
+17 21 * * * root /bin/bash -c 'for f in $(/usr/bin/df | grep ^/dev/loop); do /usr/bin/umount $f; done'
