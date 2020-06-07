@@ -1,10 +1,10 @@
 #!/bin/bash
-# am ersten Samstag im Monat wird ein full backup gemacht, 
-# an anderen Samstagen ein diff backup
-# Frank Schütte 2017
+# am ersten Sonntag im Monat wird ein full backup gemacht, 
+# an anderen Sonntagen ein diff backup
+# Frank Schütte 2017-2020
 # cal hat ein strenges Format, wobei Leerzeichen verwendet werden.
 
-when=`/usr/bin/cal | /usr/bin/head -n 3 | /usr/bin/tail -n 1 |/usr/bin/cut -c 16-17`
+when=`/usr/bin/cal | /usr/bin/head -n 3 | /usr/bin/tail -n 1 |/usr/bin/cut -c 19-20`
 now=`/usr/bin/date "+%_d"`
 /usr/bin/echo -n "when:$when|now:$now|equal?:"
 [ $when -eq $now ] && /usr/bin/echo true || /usr/bin/echo false
