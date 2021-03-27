@@ -44,7 +44,9 @@ Authors:
 mkdir -p %{buildroot}%{_fillupdir}
 install -m 644 sysconfig.%{name} %{buildroot}%{_fillupdir}/sysconfig.%{name}
 
-cp -R etc/* %{buildroot}/etc/
+mkdir -p %{buildroot}/etc/mindi
+install mindi.conf.in %{buildroot}/etc/mindi/mindi.conf.in
+
 mkdir -p %{buildroot}/sbin
 cp -R sbin/* %{buildroot}/sbin/
 
