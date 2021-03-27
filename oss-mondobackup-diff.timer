@@ -1,0 +1,8 @@
+[Unit]
+Description=oss-mondobackup diff backup on each Sunday but the first 01:00
+
+[Timer]
+OnCalendar=Sun *-*-8..31 01:00
+
+[Install]
+WantedBy=timers.target

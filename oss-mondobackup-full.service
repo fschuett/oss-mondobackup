@@ -1,0 +1,8 @@
+[Unit]
+Description=oss-mondobackup full backup
+ConditionACPower=true
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/etc/sysconfig/oss-mondobackup
+ExecStart=/sbin/oss-mondobackup -f

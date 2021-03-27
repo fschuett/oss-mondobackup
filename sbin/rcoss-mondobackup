@@ -1,0 +1,11 @@
+#!/bin/bash
+# Frank Schütte 2017-2021
+if [ "$AUTOBACKUP" = "yes" ]; then
+        echo "doing oss-mondobackup"
+        /sbin/oss-mondobackup $@
+else
+        echo "automatic oss-mondobackup disabled"
+fi
+
+exit 0
+

@@ -1,0 +1,8 @@
+[Unit]
+Description=oss-mondobackup full backup on 1st Sunday of month at 1:00
+
+[Timer]
+OnCalendar=Sun *-*-1..7 01:00
+
+[Install]
+WantedBy=timers.target

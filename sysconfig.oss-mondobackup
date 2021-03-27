@@ -88,5 +88,5 @@ KEEPINC=7
 
 ## Type:	yesno
 ## Default:	yes
-# should cron scheduled automatic backups be done? yes or no.
-CRONBACKUP=yes
+# should systemd timer scheduled automatic backups be done? yes or no.
+AUTOBACKUP=yes

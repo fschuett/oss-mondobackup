@@ -1,0 +1,8 @@
+[Unit]
+Description=oss-mondobackup diff backup
+ConditionACPower=true
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/etc/sysconfig/oss-mondobackup
+ExecStart=/sbin/rcoss-mondobackup -d

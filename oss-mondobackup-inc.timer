@@ -1,0 +1,8 @@
+[Unit]
+Description=oss-mondobackup inc backup on each weekday but Sunday
+
+[Timer]
+OnCalendar=Mon,Tue,Wed,Thu,Fri,Sat *-*-* 02:00
+
+[Install]
+WantedBy=timers.target
