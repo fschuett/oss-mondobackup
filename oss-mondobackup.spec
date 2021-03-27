@@ -54,6 +54,9 @@ for f in `ls *.service *.timer`; do
   install -D -m 0644 ${f} %{buildroot}%{_unitdir}/${f}
 done
 
+mkdir -p %{buildroot}%{_presetdir}
+install 50-oss-mondobackup.preset %{buildroot}%{_presetdir}/50-oss-mondobackup.preset
+
 %pre
 #only the timer can be enabled/disabled/masked !
 %service_add_pre %{name}-full.service %{name}-full.timer %{name}-diff.service %{name}-diff.timer %{name}-inc.service %{name}-inc.timer
@@ -93,6 +96,7 @@ exit 0
 %{_unitdir}/%{name}-diff.timer
 %{_unitdir}/%{name}-inc.service
 %{_unitdir}/%{name}-inc.timer
+%{_presetdir}/50-oss-mondobackup.preset
 
 %changelog
 
