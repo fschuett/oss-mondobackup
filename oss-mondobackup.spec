@@ -44,16 +44,12 @@ Authors:
 mkdir -p %{buildroot}%{_fillupdir}
 install -m 644 sysconfig.%{name} %{buildroot}%{_fillupdir}/sysconfig.%{name}
 
-mkdir -p %{buildroot}/sbin
 cp -R etc/* %{buildroot}/etc/
 cp -R sbin/* %{buildroot}/sbin/
 
-install -D -m 0644 examples/%{name}.service %{buildroot}%{_unitdir}/%{name}-full.service
-install -D -m 0644 examples/%{name}.timer %{buildroot}%{_unitdir}/%{name}-full.timer
-install -D -m 0644 examples/%{name}.service %{buildroot}%{_unitdir}/%{name}-diff.service
-install -D -m 0644 examples/%{name}.timer %{buildroot}%{_unitdir}/%{name}-diff.timer
-install -D -m 0644 examples/%{name}.service %{buildroot}%{_unitdir}/%{name}-inc.service
-install -D -m 0644 examples/%{name}.timer %{buildroot}%{_unitdir}/%{name}-inc.timer
+for f in `ls *.service *.timer`; do
+  install -D -m 0644 ${f} %{buildroot}%{_unitdir}/${f}
+done
 
 %pre
 #only the timer can be enabled/disabled/masked !
