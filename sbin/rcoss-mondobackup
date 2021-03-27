@@ -1,5 +1,7 @@
 #!/bin/bash
 # Frank Schütte 2017-2021
+[ -e /etc/sysconfig/oss-mondobackup ] && . /etc/sysconfig/oss-mondobackup
+
 if [ "$AUTOBACKUP" = "yes" ]; then
         echo "doing oss-mondobackup"
         /sbin/oss-mondobackup $@
