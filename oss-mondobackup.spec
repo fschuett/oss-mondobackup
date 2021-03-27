@@ -44,6 +44,7 @@ Authors:
 mkdir -p %{buildroot}%{_fillupdir}
 install -m 644 sysconfig.%{name} %{buildroot}%{_fillupdir}/sysconfig.%{name}
 
+mkdir -p %{buildroot}/sbin
 cp -R etc/* %{buildroot}/etc/
 cp -R sbin/* %{buildroot}/sbin/
 
@@ -85,8 +86,8 @@ exit 0
 %dir /etc/mindi
 /etc/mindi/mindi.conf.in
 %{_fillupdir}/sysconfig.%{name}
-%attr(755,root,root) /sbin/oss-mondobackup
-%attr(755,root,root) /sbin/rcoss-mondobackup
+%attr(755,root,root) /sbin/%{name}
+%attr(755,root,root) /sbin/rc%{name}
 %{_unitdir}/%{name}-full.service
 %{_unitdir}/%{name}-full.timer
 %{_unitdir}/%{name}-diff.service
