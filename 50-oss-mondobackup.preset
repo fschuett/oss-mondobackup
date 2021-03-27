@@ -1,0 +1,3 @@
+enable oss-mondobackup-full.timer
+enable oss-mondobackup-diff.timer
+enable oss-mondobackup-inc.timer
