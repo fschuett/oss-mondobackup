@@ -5,4 +5,4 @@ ConditionACPower=true
 [Service]
 Type=oneshot
 EnvironmentFile=-/etc/sysconfig/oss-mondobackup
-ExecStart=/sbin/oss-mondobackup -i
+ExecStart=/sbin/rcoss-mondobackup -i
