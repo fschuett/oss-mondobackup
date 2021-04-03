@@ -367,9 +367,9 @@ fi
 # starting mondoarchive
 if [ $RC -eq 0 ]; then
 	if [ -z "$INCLUDEDIRS" ]; then
-		/usr/bin/nice -n 19 mondoarchive $btypeparam -p $ISOPREFIX $rtypeparam -E "${MOUNTPOINT}|${EXCLUDEDIRS}" -N -d $target -s ${MEDIASIZE}m -$COMPRESSION -L $kernelmanual
+		/usr/bin/nice -n 19 mondoarchive $btypeparam -p $ISOPREFIX $rtypeparam -E "${MOUNTPOINT}|${EXCLUDEDIRS}" -N -d $target -s ${MEDIASIZE}m -$COMPRESSION -L $kernelmanual -S /var/tmp -T /var/tmp
 	else
-		/usr/bin/nice -n 19 mondoarchive $btypeparam -p $ISOPREFIX $rtypeparam -I "$INCLUDEDIRS" -E "${MOUNTPOINT}|${EXCLUDEDIRS}" -N -d $target -s ${MEDIASIZE}m -$COMPRESSION -L $kernelmanual
+		/usr/bin/nice -n 19 mondoarchive $btypeparam -p $ISOPREFIX $rtypeparam -I "$INCLUDEDIRS" -E "${MOUNTPOINT}|${EXCLUDEDIRS}" -N -d $target -s ${MEDIASIZE}m -$COMPRESSION -L $kernelmanual -S /var/tmp -T /var/tmp
 	fi
 	RC=$?
 fi
