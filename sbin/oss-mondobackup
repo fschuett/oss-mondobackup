@@ -12,6 +12,7 @@ PATH=/sbin:/usr/sbin:/usr/bin:/bin
 export PATH
 
 # default values
+LOGDIR=/var/log
 deplistdir=/etc/mindi/deplist.d
 netconf=$deplistdir/net.conf
 mondocache=/var/cache/mondo
@@ -393,18 +394,13 @@ if [ "$RC" = "0" ]; then
 	case $btype in
 
 		full)
-			# copying mondorescue.iso to backup folder if it is a full backup
-			if [ -f /var/cache/mindi/mondorescue.iso ]; then
-				# mindi 2.22, new location for mindi files
-				mondoiso=/var/cache/mindi/mondorescue.iso
-			elif [ -f /root/images/mindi/mondorescue.iso ]; then
-				mondoiso=/root/images/mindi/mondorescue.iso
-			fi
+			# copying mindi.iso to backup folder if it is a full backup
+			mondoiso=/var/cache/mindi/mindi.iso
 			if [ -n "$mondoiso" ]; then
 				echo "Copying mondorescue.iso to $MOUNTPOINT/$ISOPREFIX/$bfolder ..."
-				cp -a $mondoiso $MOUNTPOINT/$ISOPREFIX/$bfolder
+				cp -a $mondoiso $MOUNTPOINT/$ISOPREFIX/$bfolder/mondorescue.iso
 			else
-				echo "Fatal! Cannot find mondorescue.iso!"
+				echo "Fatal! Cannot find $mondoiso!"
 				RC=1
 			fi
 			setstokeep=$KEEPFULL
@@ -518,4 +514,3 @@ fi
 
 
 exit $RC
-
