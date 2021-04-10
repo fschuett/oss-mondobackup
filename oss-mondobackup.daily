@@ -1,0 +1,1 @@
+root /bin/bash -c 'for f in $(/usr/bin/df | grep ^/dev/loop); do /usr/bin/umount $f; done'

@@ -55,7 +55,9 @@ for f in `ls *.service *.timer`; do
 done
 
 mkdir -p %{buildroot}%{_presetdir}
-install 50-oss-mondobackup.preset %{buildroot}%{_presetdir}/50-oss-mondobackup.preset
+install 50-%{name}.preset %{buildroot}%{_presetdir}/50-%{name}.preset
+
+install %{name}.daily %{buildroot}/etc/cron.daily/%{name}
 
 %pre
 #only the timer can be enabled/disabled/masked !
@@ -96,7 +98,8 @@ exit 0
 %{_unitdir}/%{name}-diff.timer
 %{_unitdir}/%{name}-inc.service
 %{_unitdir}/%{name}-inc.timer
-%{_presetdir}/50-oss-mondobackup.preset
+%{_presetdir}/50-%{name}.preset
+%attr(755,root,root) /etc/cron.daily/%{name}
 
 %changelog
 
