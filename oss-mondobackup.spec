@@ -57,6 +57,7 @@ done
 mkdir -p %{buildroot}%{_presetdir}
 install 50-%{name}.preset %{buildroot}%{_presetdir}/50-%{name}.preset
 
+mkdir -p %{buildroot}/etc/cron.daily
 install %{name}.daily %{buildroot}/etc/cron.daily/%{name}
 
 %pre
@@ -99,6 +100,7 @@ exit 0
 %{_unitdir}/%{name}-inc.service
 %{_unitdir}/%{name}-inc.timer
 %{_presetdir}/50-%{name}.preset
+%dir /etc/cron.daily
 %attr(755,root,root) /etc/cron.daily/%{name}
 
 %changelog
